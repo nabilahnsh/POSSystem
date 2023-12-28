@@ -9,6 +9,7 @@ import com.kkm.pos2.domain.Cashier;
 import com.kkm.pos2.domain.Item;
 import com.kkm.pos2.domain.Sale;
 import com.kkm.pos2.domain.SaleItem;
+import com.kkm.pos2.exception.UseCaseException;
 import com.kkm.pos2.usecase.ProcessSaleUseCase;
 
 public class SaleTest {
@@ -35,21 +36,21 @@ public class SaleTest {
 
 		}
 	
-	public static void printPayment(Sale sale) {
-		if(sale.getPayment() instanceof CashPayment) {
-			CashPayment cashPayment = (CashPayment) sale.getPayment();
-			System.out.println("Payment (Cash) : " + cashPayment.getCashInHand());
-			System.out.println("Change : " + cashPayment.change());
-		}
-		else {
-			System.out.println("Payment (Qris) : " + sale.getPayment().getAmount());
-		}
-		System.out.println();
-	System.out.println("================================================");
-
-	}
+//	public static void printPayment(Sale sale) {
+//		if(sale.getPayment() instanceof CashPayment) {
+//			CashPayment cashPayment = (CashPayment) sale.getPayment();
+//			System.out.println("Payment (Cash) : " + cashPayment.getCashInHand());
+//			System.out.println("Change : " + cashPayment.change());
+//		}
+//		else {
+//			System.out.println("Payment (Qris) : " + sale.getPayment().getAmount());
+//		}
+//		System.out.println();
+//	System.out.println("================================================");
+//
+//	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws UseCaseException {
 		
 		Cashier cashier1 = new Cashier("01", "Wafda");
 		Cashier cashier2 = new Cashier("02", "Alisa");
@@ -65,16 +66,17 @@ public class SaleTest {
 		saleUseCase.addSaleItem("003", 2);
 
 		printSale(saleUseCase.getSale());
+		saleUseCase.makePayment(saleUseCase.cash(150000)).finishSale();;
 		
-		double amount1 = saleUseCase.getSale().totalPayment();
-		Payment payment1 = new QrisPayment(amount1);
-		
-		
-		if(saleUseCase.makePayment(payment1)) {
-			Sale sale1 = saleUseCase.finishSale();
-			
-			printPayment(sale1);
-		}
+//		double amount1 = saleUseCase.getSale().totalPayment();
+//		Payment payment1 = new QrisPayment();
+//		
+//		
+//		if(saleUseCase.makePayment(payment1)) {
+//			Sale sale1 = saleUseCase.finishSale();
+//			
+//			printPayment(sale1);
+//		}
 		
 		//Sale2
 		saleUseCase.createNewSale("#2", cashier2);
@@ -82,14 +84,15 @@ public class SaleTest {
 		saleUseCase.addSaleItem("003", 4);
 		
 		printSale(saleUseCase.getSale());
+		saleUseCase.makePayment(saleUseCase.qris()).finishSale();
 		
-		double amount2 = saleUseCase.getSale().totalPayment();
-		Payment payment2 = new CashPayment(amount2,100_000);
+//		double amount2 = saleUseCase.getSale().totalPayment();
+//		Payment payment2 = new CashPayment(100_000);
 		
-		if(saleUseCase.makePayment(payment2)) {
-			Sale sale2 = saleUseCase.finishSale();
-			printPayment(sale2);
-		}
+//		if(saleUseCase.makePayment(payment2)) {
+//			Sale sale2 = saleUseCase.finishSale();
+//			printPayment(sale2);
+//		}
 		
 		//Sale3
 		saleUseCase.createNewSale("#3", cashier2);
@@ -98,14 +101,16 @@ public class SaleTest {
 		saleUseCase.addSaleItem("002", 1);
 					
 		printSale(saleUseCase.getSale());
+		saleUseCase.makePayment(saleUseCase.cash(120000)).finishSale();
+		
 					
-		double amount3 = saleUseCase.getSale().totalPayment();
-		Payment payment3 = new CashPayment(amount3,100_000);
-					
-		if(saleUseCase.makePayment(payment3)) {
-			Sale sale3 = saleUseCase.finishSale();
-			printPayment(sale3);
-			}
+//		double amount3 = saleUseCase.getSale().totalPayment();
+//		Payment payment3 = new CashPayment(100_000);
+//					
+//		if(saleUseCase.makePayment(payment3)) {
+//			Sale sale3 = saleUseCase.finishSale();
+//			printPayment(sale3);
+//			}
 		
 		
 				

@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.kkm.pos2.domain.Item;
+import com.kkm.pos2.exception.RepositoryException;
 import com.kkm.pos2.repository.ItemRepository;
 
 
@@ -34,6 +35,18 @@ public class ItemRepositoryDummy implements ItemRepository {
 			
 		}return null;
 		
+	}
+
+	@Override
+	public void save() {
+		System.out.println("Item Succesfully added to Dummy!");
+		
+	}
+
+	@Override
+	public List<Item> findAll() throws RepositoryException {
+		List<Item> listItem = addItemDummy();
+		return listItem;
 	} 
 
 }

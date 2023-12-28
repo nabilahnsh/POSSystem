@@ -34,10 +34,8 @@ public class Sale {
 		this.transDate = new Date();
 	}
 
-	public void addSaleItem(Item item, int quantity) {
-		SaleItem si = new SaleItem(item, quantity);
-		
-		saleItems.add(si);	
+	public void addSaleItem(SaleItem saleItem) {	
+		saleItems.add(saleItem);	
 	}
 
 	public String getSaleNumber() {
@@ -51,9 +49,13 @@ public class Sale {
 	}
 
 	public List<SaleItem> getSaleItems() {
-		List<SaleItem> clonedList = new ArrayList<SaleItem>();
-		clonedList.addAll(saleItems);
-		return clonedList;
+//		List<SaleItem> clonedList = new ArrayList<SaleItem>();
+//		clonedList.addAll(saleItems);
+		return new ArrayList<SaleItem>(saleItems);
+	}
+	
+	public void setSaleItems(List<SaleItem> saleItems) {
+		this.saleItems = saleItems;
 	}
 
 	public Cashier getCashier() {
