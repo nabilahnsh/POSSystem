@@ -1,4 +1,0 @@
-001;30000;Telur;Makanan;1
-002;50000;Beras;Makanan;1
-003;12000;Spidol;ATK;0
-004;1000;Kertas HVS;ATK;0
